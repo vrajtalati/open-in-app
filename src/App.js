@@ -5,19 +5,18 @@ import SignInForm from './componenets/SignInForm';
 import EllipseInBox from './componenets/EllipseInBox';
 import Login from './pages/Login';
 import Main from './pages/Main'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <>
-  <div className=' '>
+    <BrowserRouter>
+    <Routes>
+    <Route path="/" element= {<Login />}/>
+    <Route path="dashboard" element= {<Main />}/>
+    </Routes>
  
-  {/* <Login/> */}
-  <Main/>
-
-
-  </div>
  
-  </>
+  </BrowserRouter>
   );
 }
 

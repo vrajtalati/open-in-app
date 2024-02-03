@@ -1,11 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Left from './images/Left side.png';
+import mediaLogo from '../componenets/images/mediaLogo.png';
+import LogosSmall from '../componenets/images/LogosSmall.png';
+import logoline from '../componenets/images/logoline.png';
+import EllipseInBox from './EllipseInBox';
+import googleicon from '../componenets/images/google.svg';
+import appleicon from '../componenets/images/apple.svg';
+
+
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,32 +39,49 @@ const SignInForm = () => {
   };
 
   const handleSignIn = () => {
-    // Simulate email authentication
     if (email === 'test@example.com' && password === 'password') {
-      // Authentication successful
       toast.success('Login successful!', {
-      
-        autoClose: 2000, 
+        autoClose: 2000,
       });
+      navigate('/dashboard');
     } else {
-      // Authentication failed
       toast.error('Login failed. Invalid credentials.', {
-       
         autoClose: 2000,
       });
     }
   };
 
   return (
-    <div className=" bg-slate-100 flex h-screen">
-      {/* Left Half with Background Color */}
-      <div 
-      style={{ 
-            background:`url(${Left})`,
-            backgroundSize: 'cover'  }} 
-      className="w-1/2">
-        <div className="h-full flex justify-center items-center bg-605BFF">
-          {/* Text in the middle */}
+    <div className="bg-slate-100 flex h-screen">
+          
+         
+      {!isSmallScreen && (
+
+        
+        
+        <div
+          style={{
+            background: `url(${Left})`,
+            backgroundSize: 'cover',
+          }}
+          className="w-1/2  relative items-center justify-center"
+        >
+           <div style={{
+              width: '40%',
+              top: '0%',
+              left:'0%',
+              position:'absolute',
+
+            }}>
+            <EllipseInBox/>
+           
+            </div>
+            <img 
+            style={{
+              
+              top: '12%',
+              left:'9%',
+              position:'absolute',}}src={logoline}/>
           <div
             style={{
               fontFamily: 'Montserrat',
@@ -53,17 +93,48 @@ const SignInForm = () => {
               width: '205px',
               height: '88px',
               color: '#FFFFFF',
+              top: '40%',
+              left:'30%',
+              position:'absolute',
+
             }}
           >
             BASE
           </div>
-        </div>
-      </div>
+              
+          <div style={{
+              width: '40%',
+              bottom: '10%',
+              left:'20%',
+              position:'absolute',
 
-      {/* Right Half - Sign In Form */}
-      <div className="w-1/2 flex flex-col justify-center items-start bg-gray-100 px-24">
-        <h1 className="text-3xl font-bold mb-2">Sign In</h1>
+            }}>
+            <img src={mediaLogo}/>
+            </div>
+      
+        </div>
+      )}
+
+      <div className="w-full lg:w-1/2 flex flex-col justify-center items-center bg-gray-100 px-4 lg:px-24">
+        <h1 className="text-3xl  font-bold mb-2">Sign In</h1>
         <p className="text-sm mb-6">Sign in to your account</p>
+        <div className="flex space-x-4 mb-4">
+          <button className="flex items-center p-3 rounded-md bg-white">
+            <img
+              src={googleicon}
+              className="w-5 h-5 mr-2"
+            />
+            Sign in with Google
+          </button>
+          <button className="flex items-center p-3 rounded-md bg-white">
+            <img
+              src={appleicon}
+              alt="Apple Logo"
+              className="w-5 h-5 mr-2"
+            />
+            Sign in with Apple
+          </button>
+        </div>
 
         <div className="w-full max-w-md bg-white rounded-md border border-gray-300 shadow-md p-8">
           <label htmlFor="email" className="block mb-2 text-gray-800">

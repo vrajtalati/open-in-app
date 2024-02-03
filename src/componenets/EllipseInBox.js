@@ -1,4 +1,5 @@
 import React from 'react';
+import logoline from '../componenets/images/logoline.png';
 
 const EllipseInBox = () => {
   const ellipseStyle = {
@@ -14,7 +15,7 @@ const EllipseInBox = () => {
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <div style={ellipseStyle}></div>
-      {/* Your content goes here */}
+      
     </div>
   );
 };
