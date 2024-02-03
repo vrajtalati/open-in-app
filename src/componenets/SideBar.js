@@ -6,6 +6,7 @@ import Document from './images/Document.svg';
 import Chart from './images/Chart.svg';
 import Ticket from './images/Ticket.svg';
 import Category from './images/Category.svg';
+import logoline from '../componenets/images/logosidebar.svg';
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -24,6 +25,10 @@ const SideBar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleCloseSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -40,7 +45,7 @@ const SideBar = () => {
   }, []);
 
   return (
-    <div className="lg:flex">
+    <div className="lg:flex relative">
       {/* Hamburger Menu Button */}
       <button onClick={handleToggleSidebar} className="lg:hidden p-2 focus:outline-none">
         ☰
@@ -53,17 +58,27 @@ const SideBar = () => {
         }`}
         style={{ width: '218px', height: '1047px', top: '-1px', position: 'absolute' }}
       >
+        {/* Close Button for Small Screens */}
+        {window.innerWidth < 768 && isSidebarOpen && (
+          <button onClick={handleCloseSidebar} className="absolute top-2 right-2 p-2 focus:outline-none">
+            &times;
+          </button>
+        )}
         <div className="flex items-center">
-          <div className="circle w-16 h-16 bg-violet-200 rounded-full flex items-center justify-center mb-4"></div>
-          <div className="text-gray-900 font-nunito text-4xl font-semibold leading-33text-lg p-5">
-            Base
+          <div className="circle rounded-full flex items-center justify-center mb-4">
+            <img src={logoline} alt="Logo" />
           </div>
         </div>
 
         <ul className="nav__links">
           {menuItems.map((item, index) => (
             <li className="nav__link" key={index}>
-              <a href="http://" target="_blank" rel="noopener noreferrer" className="flex items-center p-2">
+              <a
+                href="http://"
+               
+                
+                className="flex items-center p-2 hover:bg-gray-200"
+              >
                 {item.icon}
                 <span className="text-nunito text-lg font-semibold mx-8 my-4">{item.text}</span>
               </a>
